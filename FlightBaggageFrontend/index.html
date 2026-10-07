@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Flight Baggage Tracking System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            ✈️ Flight Baggage Tracking
+        </div>
+
+        <nav>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#baggage">Baggage</a>
+            <a href="#register">Register</a>
+            <a href="#tracking">Tracking</a>
+            <a href="#charges">Charges</a>
+        </nav>
+    </header>
+
+
+    <!-- Main Container -->
+    <main class="container">
+
+        <!-- Dashboard -->
+        <section id="dashboard" class="section">
+
+            <div class="welcome">
+                <h1>Flight Baggage Tracking System</h1>
+                <p>
+                    Manage passengers, flights, baggage and baggage tracking
+                    in one place.
+                </p>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="cards">
+
+                <div class="card">
+                    <div class="card-icon">👤</div>
+                    <h3>Total Passengers</h3>
+                    <p id="passengerCount">0</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">✈️</div>
+                    <h3>Total Flights</h3>
+                    <p id="flightCount">0</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🧳</div>
+                    <h3>Total Baggage</h3>
+                    <p id="baggageCount">0</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📍</div>
+                    <h3>Tracking Records</h3>
+                    <p id="trackingCount">0</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Baggage Details -->
+        <section id="baggage" class="section">
+
+            <div class="section-title">
+                <h2>🧳 Baggage Details</h2>
+
+                <button class="primary-btn" onclick="loadBaggageDetails()">
+                    Refresh
+                </button>
+            </div>
+
+            <div class="table-container">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Baggage ID</th>
+                            <th>Passenger</th>
+                            <th>Flight</th>
+                            <th>Weight (kg)</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="baggageTableBody">
+                        <tr>
+                            <td colspan="5">
+                                Click Refresh to load baggage details
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </section>
+        <!--Add Passengers-->
+        <section class="card">
+    <h2>Register Passenger</h2>
+
+    <form id="passengerForm">
+        <div class="form-row">
+            <div>
+                <label for="passengerName">Passenger Name</label>
+                <input type="text" id="passengerName" required>
+            </div>
+
+            <div>
+                <label for="passengerPhone">Phone Number</label>
+                <input type="text" id="passengerPhone" required>
+            </div>
+        </div>
+
+        <button type="submit">Add Passenger</button>
+
+        <p id="passengerMessage"></p>
+    </form>
+</section>
+        <!-- Register Baggage -->
+        <section id="register" class="section">
+
+            <div class="section-title">
+                <h2>➕ Register Baggage</h2>
+            </div>
+
+            <div class="form-card">
+
+                <form id="registerForm">
+
+                    <div class="form-group">
+                        <label for="passengerId">
+                            Passenger ID
+                        </label>
+
+                        <input
+                            type="number"
+                            id="passengerId"
+                            placeholder="Enter passenger ID"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="flightId">
+                            Flight ID
+                        </label>
+
+                        <input
+                            type="number"
+                            id="flightId"
+                            placeholder="Enter flight ID"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="weight">
+                            Baggage Weight (kg)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="weight"
+                            step="0.01"
+                            placeholder="Enter weight"
+                            required
+                        >
+                    </div>
+
+
+                    <button type="submit" class="primary-btn">
+                        Register Baggage
+                    </button>
+
+                </form>
+
+                <p id="registerMessage" class="message"></p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Update Status -->
+        <section id="status" class="section">
+
+            <div class="section-title">
+                <h2>🔄 Update Baggage Status</h2>
+            </div>
+
+            <div class="form-card">
+
+                <form id="statusForm">
+
+                    <div class="form-group">
+                        <label for="statusBaggageId">
+                            Baggage ID
+                        </label>
+
+                        <input
+                            type="number"
+                            id="statusBaggageId"
+                            placeholder="Enter baggage ID"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="baggageStatus">
+                            New Status
+                        </label>
+
+                        <select id="baggageStatus" required>
+                            <option value="">Select status</option>
+                            <option value="Checked In">Checked In</option>
+                            <option value="In Transit">In Transit</option>
+                            <option value="Arrived">Arrived</option>
+                            <option value="Delivered">Delivered</option>
+                        </select>
+                    </div>
+
+
+                    <button type="submit" class="primary-btn">
+                        Update Status
+                    </button>
+
+                </form>
+
+                <p id="statusMessage" class="message"></p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Excess Charges -->
+        <section id="charges" class="section">
+
+            <div class="section-title">
+                <h2>💰 Excess Baggage Charges</h2>
+
+                <button class="primary-btn" onclick="loadCharges()">
+                    Calculate Charges
+                </button>
+            </div>
+
+            <p class="info-text">
+                Free baggage allowance: <strong>15 kg</strong>.
+                Excess baggage is charged at <strong>₹100 per kg</strong>.
+            </p>
+
+            <div class="table-container">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Baggage ID</th>
+                            <th>Weight (kg)</th>
+                            <th>Excess Charge (₹)</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="chargesTableBody">
+                        <tr>
+                            <td colspan="3">
+                                Click Calculate Charges to load data
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- Flights Above Average -->
+        <section id="flightAnalysis" class="section">
+
+            <div class="section-title">
+                <h2>📊 Flights Above Average Baggage</h2>
+
+                <button
+                    class="primary-btn"
+                    onclick="loadAboveAverageFlights()"
+                >
+                    View Flights
+                </button>
+            </div>
+
+            <div class="table-container">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Flight ID</th>
+                            <th>Flight Number</th>
+                            <th>Source</th>
+                            <th>Destination</th>
+                            <th>Baggage Count</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="flightAnalysisBody">
+                        <tr>
+                            <td colspan="5">
+                                Click View Flights to load data
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- Tracking -->
+        <section id="tracking" class="section">
+
+            <div class="section-title">
+                <h2>📍 Baggage Tracking</h2>
+
+                <button
+                    class="primary-btn"
+                    onclick="loadTracking()"
+                >
+                    View Tracking
+                </button>
+            </div>
+
+            <div class="tracking-search">
+
+                <input
+                    type="number"
+                    id="trackingBaggageId"
+                    placeholder="Enter Baggage ID"
+                >
+
+                <button
+                    class="primary-btn"
+                    onclick="searchTracking()"
+                >
+                    Search
+                </button>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tracking ID</th>
+                            <th>Baggage ID</th>
+                            <th>Status</th>
+                            <th>Location</th>
+                            <th>Tracking Time</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="trackingTableBody">
+                        <tr>
+                            <td colspan="5">
+                                Enter a baggage ID and click Search
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <p>
+            © 2026 Flight Baggage Tracking System
+        </p>
+
+        <p>
+            Student Project | Spring Boot + MySQL
+        </p>
+
+    </footer>
+
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
